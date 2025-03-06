@@ -102,3 +102,9 @@
     background: #eaeaea;
     color: #6767;
 }
+.error-message {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
