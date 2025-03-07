@@ -1,53 +1,169 @@
-/* src/components/TranslationApp/TranslationApp.css */
-
-/* Centering the entire container with proper padding and margins */
+/* Centering the entire container */
 .translation-container {
   display: flex;
-  flex-direction: column;  /* Stacks items vertically */
-  justify-content: center;  /* Centers content vertically */
-  align-items: center;      /* Centers content horizontally */
-  margin: 20px auto;
-  max-width: 600px;
-  padding: 20px;            /* Add padding around the entire container */
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  flex-direction: column;
+  align-items: center; /* Centers content inside */
+  justify-content: center;
+  margin: 200px auto;
   background-color: #f9f9f9;
-  width: 100%;              /* Make sure it spans the full width of its parent */
-  box-sizing: border-box;   /* Includes padding and border in element's total width */
+  padding: 30px; /* Added padding to give some spacing */
+  border-radius: 10px;
+  width: 80%; /* Responsive width */
+  max-width: 700px; /* Avoids excessive width */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling the header */
-.translation-container h2 {
+/* Centering the main container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  margin-bottom: 20px;
+  margin: auto;
+  margin-top: 200px;
+  width: 650px;
+  background: linear-gradient(#13c7e7, #492885);
+  padding: 40px;
+  border-radius: 10px;
 }
 
-/* Styling the text area */
+/* Header section */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.text {
+  color: #170d3b;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.underline {
+  width: 61px;
+  height: 6px;
+  background: #170d3b;
+  border-radius: 9px;
+  margin: 0 auto; /* Centers the underline */
+}
+
+/* Inputs Section */
+.inputs {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+/* Input Styling */
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 480px;
+  height: 80px;
+  background: #eaeaea;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.input img {
+  margin: 0px 15px;
+}
+
+.input input {
+  height: 50px;
+  width: 400px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #797979;
+  font-size: 19px;
+  text-align: center;
+}
+
+/* Forgot Password */
+.forgot-password {
+  text-align: center;
+  margin-top: 27px;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.forgot-password span {
+  color: #070113;
+  cursor: pointer;
+}
+
+/* Submit Button Section */
+.submit-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 60px auto;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 59px;
+  color: #fff;
+  background: #492885;
+  border-radius: 50px;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gray {
+  background: #eaeaea;
+  color: #676767;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Text Area */
 .input-text {
-  width: 100%;               /* Full width of the container */
-  max-width: 100%;           /* Ensures it doesn't overflow */
+  width: 90%;
+  max-width: 600px;
   height: 150px;
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
-  box-sizing: border-box;    /* Ensures padding doesn't affect width */
+  text-align: center;
 }
 
-/* Styling the language selectors */
+/* Language Selector */
 .language-selector {
-  width: 100%;               /* Full width of the container */
-  max-width: 100%;
+  width: 90%;
+  max-width: 600px;
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
-  box-sizing: border-box;    /* Ensures padding doesn't affect width */
 }
 
-/* Styling the translate button */
+/* Translate Button */
 .translate-btn {
   padding: 10px 20px;
   background-color: #007bff;
@@ -56,24 +172,23 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;               /* Full width of the container */
-  max-width: 100%;
-  box-sizing: border-box;    /* Ensures padding doesn't affect width */
+  width: 90%;
+  max-width: 600px;
 }
 
-/* Button hover effect */
 .translate-btn:hover {
   background-color: #0056b3;
 }
 
-/* Styling the result header */
+/* Result Section */
 h3 {
   font-size: 18px;
   margin-top: 20px;
+  text-align: center;
 }
 
-/* Styling the result paragraph */
 p {
   font-size: 16px;
   color: #333;
+  text-align: center;
 }

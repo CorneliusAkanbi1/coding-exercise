@@ -5,49 +5,82 @@ import email_icon from "../Assets/email.png";
 import password_icon from "../Assets/password.png";
 import TranslationApp from "../TranslationApp/TranslationApp";
 
+// Firebase imports
+import { initializeApp } from "firebase/app";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"; // Import Firestore methods
+
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCV6ltBz9siU993dlXud-pxGYc3028NP8E",
+  authDomain: "coding-exercise-ddcf6.firebaseapp.com",
+  projectId: "coding-exercise-ddcf6",
+  storageBucket: "coding-exercise-ddcf6.appspot.com",
+  messagingSenderId: "770915735779",
+  appId: "1:770915735779:web:c27d8c9582f49e863b8dd6",
+  measurementId: "G-X0SC710QQR",
+};
+
+// Initialize Firebase and Firestore
+const app = initializeApp(firebaseConfig);
+const firestore = getFirestore(app);
 
 const LoginSignup = () => {
-  const [action, setAction] = useState("Sign Up"); // Default action is "Sign Up"
-  const [email, setEmail] = useState(""); // Store email input
-  const [password, setPassword] = useState(""); // Store password input
-  const [name, setName] = useState(""); // Store name input (only used for Sign Up)
-  const [errorMessage, setErrorMessage] = useState(""); // To show error messages
-  const [users, setUsers] = useState([]); // State to simulate storing users (like a database)
-  const [loggedIn, setLoggedIn] = useState(false); // Track if user is logged in
-  const [userData, setUserData] = useState(null); // Store user data when logged in
+  const [action, setAction] = useState("Sign Up");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   // Handle form submission for Login
-  const handleLogin = () => {
-    const user = users.find(
-      (user) => user.email === email && user.password === password
-    );
+  const handleLogin = async () => {
+    try {
+      const userDocRef = doc(firestore, "users", email); // Reference to the user's document
+      const userDocSnap = await getDoc(userDocRef);
 
-    if (user) {
-      // Simulate user login
-      setUserData(user);
-      setLoggedIn(true); // Set logged-in state to true
-      setErrorMessage(""); // Clear any error messages
-      alert("Login successful!");
-    } else {
-      setErrorMessage("Invalid email or password.");
+      if (userDocSnap.exists()) {
+        const user = userDocSnap.data();
+
+        if (user.password === password) {
+          setUserData(user);
+          setLoggedIn(true);
+          setErrorMessage("");
+          alert("Login successful!");
+        } else {
+          setErrorMessage("Invalid password.");
+        }
+      } else {
+        setErrorMessage("No user found with this email.");
+      }
+    } catch (error) {
+      console.error("Error logging in: ", error);
+      setErrorMessage("An error occurred during login.");
     }
   };
 
   // Handle form submission for Sign Up
-  const handleSignUp = () => {
-    const existingUser = users.find((user) => user.email === email);
-    if (existingUser) {
-      setErrorMessage("This email is already registered.");
-      return;
-    }
+  const handleSignUp = async () => {
+    try {
+      const userDocRef = doc(firestore, "users", email); // Reference to the user's document
+      const userDocSnap = await getDoc(userDocRef);
 
-    // Create a new user object and add it to the users list
-    const newUser = { name, email, password };
-    setUsers([...users, newUser]); // Simulating storing user data
-    setErrorMessage(""); // Clear any error messages
-    alert("Sign-up successful!");
-    // Switch to Login page after successful sign-up
-    setAction("Login");
+      if (userDocSnap.exists()) {
+        setErrorMessage("This email is already registered.");
+        return;
+      }
+
+      // Create a new user document in Firestore
+      await setDoc(userDocRef, { name, email, password });
+      setErrorMessage("");
+      alert("Sign-up successful!");
+
+      // Switch to Login page after successful sign-up
+      setAction("Login");
+    } catch (error) {
+      console.error("Error signing up: ", error);
+      setErrorMessage("An error occurred during sign-up.");
+    }
   };
 
   // Handle logout
@@ -60,7 +93,7 @@ const LoginSignup = () => {
     <div className="container">
       {/* If user is logged in, show TranslationApp component */}
       {loggedIn ? (
-        <TranslationApp /> // Show TranslationApp component
+        <TranslationApp />
       ) : (
         // If not logged in, show login/signup form
         <div>
